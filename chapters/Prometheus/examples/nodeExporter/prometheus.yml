@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+# All the scrapers that are added will be added under scrape_configs
+scrape_configs:
+  # If you look in the UI, then you'll notice that there's a bunch of default parameters that get set for a job as well. (Status -> Configuration)
+  # So this document allows overwriting properties partially.
+  # The job_name property will be used in the UI to group configurations. (Status -> Service discovery)
+  - job_name: "ubuntu-node"
+    # Static config will contain the URLs to target
+    static_configs:
+      - targets: ["ubuntu-node:9100"]

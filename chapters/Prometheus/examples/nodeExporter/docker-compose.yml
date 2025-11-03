@@ -1,0 +1,28 @@
+services:
+  # "Ubuntu server" with node_exporter inside
+  ubuntu-node:
+    build:
+      context: ./ubuntu-node
+      dockerfile: ubuntuNode.dockerfile
+    container_name: ubuntu-node
+    expose:
+      - "9100"                # node_exporter port
+    networks: [monnet]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: node-exporter-prometheus
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.retention.time=2h
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - ubuntu-node
+    networks: [monnet]
+
+networks:
+  monnet:
+    driver: bridge
