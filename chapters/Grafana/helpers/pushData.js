@@ -65,8 +65,10 @@ process.on("SIGINT", () => {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+const isDefined = (val) => val !== undefined && val !== null;
+
 const randomizeValue = (label, valueSet) => {
-    if (valueSet.min && valueSet.max && valueSet.precision) {
+    if (isDefined(valueSet.min) && isDefined(valueSet.max) && isDefined(valueSet.precision)) {
         const v = valueSet.min + Math.random() * (valueSet.max - valueSet.min);
         return Number(v.toFixed(valueSet.precision));
     }
@@ -80,7 +82,7 @@ const randomizeValue = (label, valueSet) => {
 
 const buildMetric = ({ metric, labels, value }) => {
     const entries = Object.entries(labels);
-    const randomMetricValue = randomizeValue('Value', value);
+    const randomMetricValue = randomizeValue(metric, value);
 
     if (entries.length === 0) {
         return `${metric} ${randomMetricValue}`;
