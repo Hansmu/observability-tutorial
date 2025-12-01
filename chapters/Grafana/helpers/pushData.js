@@ -30,16 +30,22 @@ const METRICS = [
         name: 'product_sold',
         labels: {
             region: ["US", "EU", "Asia"],
-            product: ["shoes", "pants", "gloves"],
-            price: {
-                min: 50,
-                max: 15_000,
-                precision: 3,
-            }
+            product: ["shoes", "pants", "gloves"]
         },
         value: {
-            min: 1,
-            max: 4,
+            min: 50,
+            max: 15_000,
+            precision: 3,
+        }
+    },
+    {
+        name: 'response_time',
+        labels: {
+            endPoint: ["BUY", "SELL", "GET"]
+        },
+        value: {
+            min: 15,
+            max: 450,
             precision: 0,
         }
     },
